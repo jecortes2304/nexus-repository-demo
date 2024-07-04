@@ -27,9 +27,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/tulibreria/pdf-downloader.git</connection>
-        <developerConnection>scm:git:ssh://github.com:tulibreria/pdf-downloader.git</developerConnection>
-        <url>http://github.com/tulibreria/pdf-downloader</url>
+        <connection>scm:git:git://github.com/jcortes2304/PdfDownloader.git</connection>
+        <developerConnection>scm:git:ssh://github.com/jcortes2304/PdfDownloader.git</developerConnection>
+        <url>http://github.com/jcortes2304/PdfDownloader.gitr</url>
     </scm>
 
 
@@ -66,14 +66,25 @@
         </plugins>
     </build>
 
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>ossrh</id>-->
+<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>ossrh</id>-->
+<!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
+
     <distributionManagement>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>nexus-releases</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <id>nexus-snapshots</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

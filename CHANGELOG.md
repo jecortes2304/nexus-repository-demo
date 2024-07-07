@@ -1,8 +1,12 @@
 # Changelog
-Todos los cambios notables en este proyecto serán documentados en este archivo.
+All notable changes to this project will be documented in this file.
 
 ## [1.0.0] - 2024-07-07
-### Añadido
-- Funcionalidad básica para descargar archivos PDF.
-- Clase PDFDownloader para manejar la descarga.
-- Clase PDFDownloaderBuilder para construir instancias de PDFDownloader.
+### Added
+- Basic functionality for downloading PDF files.
+- PDFDownloader class to handle the download.
+- PDFDownloaderBuilder class to build instances of PDFDownloader.
+
+## [1.0.1-SNAPSHOT] - 2024-07-07
+### Added
+- Better logic to identify the file name.

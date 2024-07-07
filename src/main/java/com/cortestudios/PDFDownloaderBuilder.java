@@ -1,7 +1,7 @@
 package com.cortestudios;
 
 /**
- * Builder para crear instancias de PDFDownloader.
+ * Builder for creating instances of PDFDownloader.
  */
 public final class PDFDownloaderBuilder {
     private String fileURL;
@@ -11,19 +11,19 @@ public final class PDFDownloaderBuilder {
     }
 
     /**
-     * Crea una nueva instancia de PDFDownloaderBuilder.
+     * Creates a new instance of PDFDownloaderBuilder.
      *
-     * @return Una nueva instancia de PDFDownloaderBuilder.
+     * @return A new instance of PDFDownloaderBuilder.
      */
     public static PDFDownloaderBuilder aPDFDownloader() {
         return new PDFDownloaderBuilder();
     }
 
     /**
-     * Establece la URL del archivo a descargar.
+     * Sets the URL of the file to download.
      *
-     * @param fileURL URL del archivo PDF.
-     * @return La instancia actual de PDFDownloaderBuilder.
+     * @param fileURL URL of the PDF file.
+     * @return The current instance of PDFDownloaderBuilder.
      */
     public PDFDownloaderBuilder fileURL(String fileURL) {
         this.fileURL = fileURL;
@@ -31,10 +31,10 @@ public final class PDFDownloaderBuilder {
     }
 
     /**
-     * Establece el nombre del archivo para guardar el PDF descargado.
+     * Sets the name of the file to save the downloaded PDF as.
      *
-     * @param fileName Nombre del archivo.
-     * @return La instancia actual de PDFDownloaderBuilder.
+     * @param fileName Name of the file.
+     * @return The current instance of PDFDownloaderBuilder.
      */
     public PDFDownloaderBuilder fileName(String fileName) {
         this.fileName = fileName;
@@ -42,9 +42,9 @@ public final class PDFDownloaderBuilder {
     }
 
     /**
-     * Construye y devuelve una instancia de PDFDownloader.
+     * Builds and returns an instance of PDFDownloader.
      *
-     * @return Una nueva instancia de PDFDownloader.
+     * @return A new instance of PDFDownloader.
      */
     public PDFDownloader build() {
         return new PDFDownloader(fileURL, fileName);

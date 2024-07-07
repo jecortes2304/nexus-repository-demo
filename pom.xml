@@ -6,7 +6,7 @@
 
     <groupId>com.cortestudios</groupId>
     <artifactId>pdf-downloader</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>PDF Downloader</name>
     <description>Librería para descargar archivos PDF</description>
     <url>https://cortestudios-portfolio.netlify.app/</url>

@@ -7,50 +7,53 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.Scanner;
 
+/**
+ * Clase para descargar archivos PDF desde URLs especificadas.
+ */
 public class PDFDownloader {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
-        System.out.print("Ingrese la URL del PDF: ");
-        String fileURL = scanner.nextLine();
+    private final String fileURL;
+    private String fileName;
 
-        System.out.print("Ingrese el nombre con el que desea guardar el archivo (sin extensión): ");
-        String fileName = scanner.nextLine();
-
-        try {
-            downloadPDF(fileURL, fileName + ".pdf");
-            System.out.println("El archivo se ha descargado correctamente.");
-        } catch (IOException e) {
-            System.out.println("Ocurrió un error al descargar el archivo: " + e.getMessage());
-        }
-
-        scanner.close();
+    /**
+     * Constructor para PDFDownloader.
+     *
+     * @param fileURL  URL del archivo PDF a descargar.
+     * @param fileName Nombre del archivo para guardar el PDF descargado.
+     */
+    public PDFDownloader(String fileURL, String fileName) {
+        this.fileURL = fileURL;
+        this.fileName = fileName;
     }
 
-    public static void downloadPDF(String fileURL, String fileName) throws IOException {
+    /**
+     * Descarga el archivo PDF desde la URL especificada y lo guarda con el nombre de archivo dado.
+     *
+     * @throws IOException Si ocurre un error durante la descarga o al guardar el archivo.
+     */
+    public void downloadPDF() throws IOException {
         OkHttpClient client = new OkHttpClient();
-
+        fileName = this.fileName.contains(".pdf") ? this.fileName : this.fileName + ".pdf";
         Request request = new Request.Builder()
-                .url(fileURL)
+                .url(this.fileURL)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
 
             ResponseBody responseBody = response.body();
             if (responseBody != null) {
                 try (InputStream inputStream = responseBody.byteStream()) {
-                    Path path = Path.of(fileName);
+                    Path path = Path.of(this.fileName);
                     Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
         }
     }
 }
-

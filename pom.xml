@@ -157,9 +157,13 @@
 
     <distributionManagement>
         <repository>
-            <id>cortes-repository</id>
-            <url>http://localhost:8082/repository/cortes-repository/</url>
+            <id>cortes-releases</id>
+            <url>http://localhost:8082/repository/cortes-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>cortes-snapshots</id>
+            <url>http://localhost:8082/repository/cortes-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>

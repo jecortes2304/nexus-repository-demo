@@ -1,14 +1,56 @@
 version: '3'
 services:
+
   nexus-repository-service:
+    restart: unless-stopped
     container_name: nexus-repository
     image: sonatype/nexus3:3.69.0
     volumes:
-      - /C/Nexus/nexus-data:/nexus-data
+      - nexus-data:/nexus-data
     ports:
       - "8082:8081"
     networks:
       - sonatype
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nginx-proxy-manager:
+    container_name: nginx-proxy-manager
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "81:81"  # UI port
+      - "443:443"
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - nexus-repository-service
+
+  duckdns:
+    image: linuxserver/duckdns:arm32v7-version-e60b35ff
+    container_name: duckdns
+    env_file:
+      - .env
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
+      - TOKEN=${DUCKDNS_TOKEN}
+      - LOG_FILE=false
+    volumes:
+      - ./appdata/config:/config
+    restart: unless-stopped
+
 networks:
   sonatype:
     driver: bridge
+
+volumes:
+  nexus-data:
+    driver: local

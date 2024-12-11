@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   nexus-repository-service:
     restart: unless-stopped
     container_name: nexus-repository
@@ -43,6 +42,8 @@ services:
       - SUBDOMAINS=${DUCKDNS_SUBDOMAINS}
       - TOKEN=${DUCKDNS_TOKEN}
       - LOG_FILE=false
+    networks:
+      - sonatype
     volumes:
       - ./appdata/config:/config
     restart: unless-stopped

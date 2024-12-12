@@ -131,7 +131,6 @@
                 <version>3.4.0</version>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                     <linkXRef>false</linkXRef>
@@ -157,12 +156,12 @@
 
     <distributionManagement>
         <repository>
-            <id>cortes-releases</id>
-            <url>http://localhost:8082/repository/cortes-releases/</url>
+            <id>nexus-releases</id>
+            <url>https://nexus-cs-aws.duckdns.org/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>cortes-snapshots</id>
-            <url>http://localhost:8082/repository/cortes-snapshots/</url>
+            <id>nexus-snapshots</id>
+            <url>https://nexus-cs-aws.duckdns.org/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 

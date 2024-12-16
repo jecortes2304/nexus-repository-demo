@@ -2,6 +2,7 @@ package com.cortestudios;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +27,21 @@ class PDFDownloaderTest {
                 .build();
 
         downloader.downloadPDF();
+
+        assertTrue(Files.exists(filePath), "El archivo PDF debería existir después de la descarga");
+        assertTrue(Files.size(filePath) > 0, "El archivo PDF descargado no debería estar vacío");
+    }
+
+    @Test
+    void testDownloadPDFPassingFileUrlAndName() throws IOException {
+        String fileURL = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+        String fileName = "test.pdf";
+
+        Path filePath = tempDir.resolve(fileName);
+
+        PDFDownloader downloader = new PDFDownloader();
+
+        downloader.downloadPDF(fileURL, filePath.toString());
 
         assertTrue(Files.exists(filePath), "El archivo PDF debería existir después de la descarga");
         assertTrue(Files.size(filePath) > 0, "El archivo PDF descargado no debería estar vacío");

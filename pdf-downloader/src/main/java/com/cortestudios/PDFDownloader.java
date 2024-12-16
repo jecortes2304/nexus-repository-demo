@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class PDFDownloader {
 
-    private final String fileURL;
+    private String fileURL;
     private String fileName;
 
     /**
@@ -28,6 +28,12 @@ public class PDFDownloader {
     public PDFDownloader(String fileURL, String fileName) {
         this.fileURL = fileURL;
         this.fileName = fileName;
+    }
+
+    /**
+     * Default constructor for PDFDownloader.
+     */
+    public PDFDownloader() {
     }
 
     /**
@@ -52,6 +58,37 @@ public class PDFDownloader {
             if (responseBody != null) {
                 try (InputStream inputStream = responseBody.byteStream()) {
                     Path path = Path.of(this.fileName);
+                    Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Downloads the PDF file from the specified URL and saves it with the given file name.
+     *
+     * @param fileURL  URL of the PDF file to download.
+     * @param fileName Name of the file to save the downloaded PDF as.
+     * @throws IOException If an error occurs during the download or while saving the file.
+     */
+    public void downloadPDF(String fileURL, String fileName) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        String lastFourChars = fileName.substring(fileName.length() - 4);
+        fileName = lastFourChars.equals(".pdf") ? fileName : fileName + ".pdf";
+        Request request = new Request.Builder()
+                .url(fileURL)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Unexpected code " + response);
+            }
+
+            ResponseBody responseBody = response.body();
+            if (responseBody != null) {
+                try (InputStream inputStream = responseBody.byteStream()) {
+                    Path path = Path.of(fileName);
                     Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
